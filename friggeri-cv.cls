@@ -89,14 +89,6 @@
   \vspace{-2\parskip}
 }
 
-\newcommand{\footer}{%
-	\begin{tikzpicture}[remember picture,overlay]
-	\node [rectangle, fill=fillfooter, anchor=south, minimum width=\paperwidth, minimum height=5cm] (box) at (current page.south){};
-	\end{tikzpicture}
-	\vspace{2.5cm}
-	\vspace{-2\parskip}
-}
-
 %%%%%%%%%%%%%
 % Structure %
 %%%%%%%%%%%%%
