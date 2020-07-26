@@ -1,12 +1,7 @@
 sudo: required
 dist: trusty
-addons:
-  apt:
-    packages:
-    - texlive-full
+before_install:
+- sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended
 script:
-- cd English
-- lualatex "Harun Sokullu.tex"
-- cd ..
-- cd Turkish
-- lualatex "Harun Sokullu.tex"
+- mkdir _build
+- lualatex -interaction=nonstopmode -halt-on-error -output-directory _build English/"Harun Sokullu.tex"
