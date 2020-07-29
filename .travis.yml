@@ -3,8 +3,8 @@ dist: trusty
 before_install:
 - sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-xetex xzdec biber
 - tlmgr init-usertree
+- tlmgr option repository ftp://tug.org/historic/systems/texlive/2015/tlnet-final
 - tlmgr install xcolor
-# - sudo tlmgr option repository ftp://tug.org/historic/systems/texlive/2015/tlnet-final
 # - sudo tlmgr install hyperref parskip babel tools graphics xcolor
 script:
 - mkdir _build
