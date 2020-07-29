@@ -2,8 +2,9 @@ sudo: required
 dist: trusty
 before_install:
 - sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-xetex xzdec  biber
-- sudo tlmgr init-usertree
-- sudo tlmgr install hyperref parskip babel tools graphics xcolor
+# - sudo tlmgr init-usertree
+# - sudo tlmgr option repository ftp://tug.org/historic/systems/texlive/2015/tlnet-final
+# - sudo tlmgr install hyperref parskip babel tools graphics xcolor
 script:
 - mkdir _build
 - lualatex -interaction=nonstopmode -halt-on-error -output-directory _build English.tex
