@@ -3,16 +3,9 @@ dist: trusty
 addons:
   apt:
     packages:
-    - texlive-latex-recommended
-    - texlive-latex-extra
-    - texlive-luatex
-    - texlive-xetex
-    - latex-xcolor
-    - texlive-fonts-recommended
+    - texlive-full
 script:
-- mkdir _build
-- lualatex -interaction=nonstopmode -halt-on-error -output-directory _build English.tex
-- lualatex -interaction=nonstopmode -halt-on-error -output-directory _build Turkish.tex
+- make
 deploy:
   provider: releases
   api_key:
