@@ -7,6 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Make Build Directory
+          command: mkdir build
+      - run:
           name: Compile
           command: make
       - store_artifacts:
