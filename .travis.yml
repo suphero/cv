@@ -24,9 +24,9 @@ cache:
 script:
   - make
   # Texliveonfly will download packages automatically
-  - texliveonfly main.tex
+  # - texliveonfly main.tex
   # You can use latexmk to automatically handle bibtex and references (recommended)
-  - latexmk -pdf main.tex
+  # - latexmk -pdf main.tex
 
   # But you could use any other compiler as well instead of latexmk. Example:
 #  - pdflatex main.tex
