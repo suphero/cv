@@ -3,7 +3,8 @@ dist: trusty
 addons:
   apt:
     packages:
-    - texlive-full
+    - texlive-latex-recommended
+    - texlive-luatex
     - texlive-fonts-recommended
 script:
 - mkdir _build
