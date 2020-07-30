@@ -4,6 +4,7 @@ addons:
   apt:
     packages:
     - texlive-full
+    - texlive-fonts-recommended
 script:
 - mkdir _build
 - lualatex -interaction=nonstopmode -halt-on-error -output-directory _build English.tex
