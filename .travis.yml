@@ -5,6 +5,7 @@ addons:
     packages:
     - texlive-latex-recommended
     - texlive-luatex
+    - latex-xcolor
     - texlive-fonts-recommended
 script:
 - mkdir _build
