@@ -13,4 +13,4 @@ jobs:
           name: Compile
           command: make
       - store_artifacts:
-          path: ~/build
+          path: build
