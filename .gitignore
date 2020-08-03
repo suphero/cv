@@ -7,6 +7,10 @@
 *.fls
 *.out
 *.toc
+*.bcf
+*.run.xml
+*.pdf
+*.synctex.gz
 
 ## Intermediate documents:
 *.dvi

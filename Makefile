@@ -2,18 +2,18 @@
 
 CC = xelatex
 OUTPUT_DIR = build
-RESUME_DIR = resume
-CV_DIR = cv
-RESUME_SRCS = $(shell find $(RESUME_DIR) -name '*.tex')
-CV_SRCS = $(shell find $(CV_DIR) -name '*.tex')
+TURKISH_DIR = turkish
+ENGLISH_DIR = english
+TURKISH_SRCS = $(shell find $(TURKISH_DIR) -name '*.tex')
+ENGLISH_SRCS = $(shell find $(ENGLISH_DIR) -name '*.tex')
 
-examples: $(foreach x, cv resume, $x.pdf)
+all: $(foreach x, turkish english, $x)
 
-resume.pdf: resume.tex $(RESUME_SRCS)
+turkish: turkish.tex $(TURKISH_SRCS)
 	$(CC) -output-directory=$(OUTPUT_DIR) $<
 
-cv.pdf: cv.tex $(CV_SRCS)
+english: english.tex $(ENGLISH_SRCS)
 	$(CC) -output-directory=$(OUTPUT_DIR) $<
 
 clean:
-	rm -rf $(OUTPUT_DIR)/*.pdf
+	rm -rf $(OUTPUT_DIR)/*
