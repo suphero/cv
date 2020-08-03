@@ -1,4 +1,4 @@
-.PHONY: examples
+.PHONY: all
 
 CC = xelatex
 OUTPUT_DIR = build

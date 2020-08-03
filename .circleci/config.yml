@@ -10,9 +10,6 @@ jobs:
           name: Make Build Directory
           command: mkdir build
       - run:
-          name: Clean
-          command: make clean
-      - run:
           name: Compile
           command: make
       - store_artifacts:
