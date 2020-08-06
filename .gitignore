@@ -7,10 +7,8 @@
 *.fls
 *.out
 *.toc
-*.bcf
-*.run.xml
-*.pdf
-*.synctex.gz
+
+build
 
 ## Intermediate documents:
 *.dvi
