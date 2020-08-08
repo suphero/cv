@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  gh-pages: sugarshin/gh-pages@0.0.6
 
 jobs:
   build:
@@ -14,3 +16,6 @@ jobs:
           command: make
       - store_artifacts:
           path: build
+      - gh-pages/deploy:
+          build-dir: build
+          ssh-fingerprints: '4a:48:e2:52:03:68:af:58:72:be:2d:fb:08:c7:f0:80'
