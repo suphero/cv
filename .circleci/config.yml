@@ -20,4 +20,4 @@ jobs:
           path: build
       - gh-pages/deploy:
           build-dir: build
-          ssh-fingerprints: '4a:48:e2:52:03:68:af:58:72:be:2d:fb:08:c7:f0:80'
+          ssh-fingerprints: '54:42:2c:c7:3f:aa:88:48:88:ac:a7:49:2d:e0:eb:03'
