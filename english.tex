@@ -46,6 +46,8 @@
 % If you would like to change the social information separator from a pipe (|) to something else
 \renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
 
+% Set language
+\usepackage[english]{babel}
 
 %-------------------------------------------------------------------------------
 %	PERSONAL INFORMATION
@@ -54,8 +56,8 @@
 % Available options: circle|rectangle,edge/noedge,left/right
 % \photo{./examples/profile.png}
 \name{Harun}{Sokullu}
-\position{Software Architect{\enskip\cdotp\enskip}Security Expert}
-\address{42-8, Bangbae-ro 15-gil, Seocho-gu, Seoul, 00681, Rep. of KOREA}
+% \position{Software Architect{\enskip\cdotp\enskip}Security Expert}
+% \address{42-8, Bangbae-ro 15-gil, Seocho-gu, Seoul, 00681, Rep. of KOREA}
 
 \mobile{(+90) 507-471-4044}
 \email{harunsokullu@gmail.com}
@@ -69,11 +71,11 @@
 % \reddit{reddit-id}
 % \medium{madium-id}
 % \googlescholar{googlescholar-id}{name-to-display}
-%% \firstname and \lastname will be used
+% \firstname and \lastname will be used
 % \googlescholar{googlescholar-id}{}
 % \extrainfo{extra informations}
 
-\quote{``Be the change that you want to see in the world."}
+% \quote{``Be the change that you want to see in the world."}
 
 
 %-------------------------------------------------------------------------------
@@ -87,7 +89,7 @@
 % Leave any of these blank if they are not needed
 \makecvfooter
   {\today}
-  {Harun Sokullu~~~·~~~Résumé}
+  {Harun Sokullu~~~·~~~CV}
   {\thepage}
 
 
@@ -95,14 +97,11 @@
 %	CV/RESUME CONTENT
 %	Each section is imported separately, open each file in turn to modify content
 %-------------------------------------------------------------------------------
-\input{english/education.tex}
 \input{english/skills.tex}
 \input{english/experience.tex}
-\input{english/extracurricular.tex}
-\input{english/honors.tex}
-\input{english/presentation.tex}
-\input{english/writing.tex}
-\input{english/committees.tex}
+\input{english/corporate.tex}
+\input{english/individual.tex}
+\input{english/education.tex}
 
 
 %-------------------------------------------------------------------------------
