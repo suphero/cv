@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   gh-pages: sugarshin/gh-pages@0.0.6
-
 jobs:
   build:
     docker:
