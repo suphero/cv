@@ -8,7 +8,7 @@ jobs:
       - store_artifacts:
           path: build2
       - persist_to_workspace:
-          root: workspace
+          root: .
           paths:
             - build2
   publish:
@@ -16,7 +16,7 @@ jobs:
       - image: circleci/golang:1.8
     steps:
       - attach_workspace:
-          at: /tmp/workspace/build2
+          at: /tmp/build2
       - run:
           name: "Publish Release on GitHub"
           command: |
