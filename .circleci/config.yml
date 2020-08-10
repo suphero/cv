@@ -13,7 +13,7 @@ jobs:
             - build2
   publish:
     docker:
-      - image: circleci/golang:1.8
+      - image: circleci/golang:latest
     steps:
       - attach_workspace:
           at: /tmp/build2
