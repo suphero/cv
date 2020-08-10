@@ -1,4 +1,4 @@
-.PHONY: examples
+.PHONY: build_all
 
 CC = xelatex
 OUTPUT_DIR = build
@@ -7,7 +7,7 @@ ENGLISH_DIR = english
 TURKISH_SRCS = $(shell find $(TURKISH_DIR) -name '*.tex')
 ENGLISH_SRCS = $(shell find $(ENGLISH_DIR) -name '*.tex')
 
-examples: $(foreach x, turkish english, $x.pdf)
+build_all: $(foreach x, turkish english, $x.pdf)
 
 turkish.pdf: turkish.tex $(TURKISH_SRCS)
 	$(CC) -output-directory=$(OUTPUT_DIR) $<
