@@ -13,12 +13,16 @@ jobs:
           command: make build_all
       - store_artifacts:
           path: build
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - build
   publish:
     docker:
       - image: circleci/golang:1.8
     steps:
       - attach_workspace:
-          at: ./build
+          at: /tmp/workspace/build
       - run:
           name: "Publish Release on GitHub"
           command: |
