@@ -18,6 +18,9 @@ jobs:
           command: make
       - store_artifacts:
           path: build
-      - gh-pages/deploy:
-          build-dir: build
-          ssh-fingerprints: '54:42:2c:c7:3f:aa:88:48:88:ac:a7:49:2d:e0:eb:03'
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            go get github.com/tcnksm/ghr
+            VERSION=$(my-binary --version)
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./build/
