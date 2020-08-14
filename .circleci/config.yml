@@ -17,8 +17,8 @@ jobs:
           name: Move artifacts
           command: |
             mkdir -p artifacts
-            mv build/english.pdf artifacts
-            mv build/turkish.pdf artifacts
+            mv build/english.pdf artifacts/HarunSokullu_en.pdf
+            mv build/turkish.pdf artifacts/HarunSokullu_tr.pdf
       - store_artifacts:
           path: artifacts
       - persist_to_workspace:
