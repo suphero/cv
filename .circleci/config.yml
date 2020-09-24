@@ -6,9 +6,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install FontAwesome
-          command: sudo apt-get install texlive-fonts-extra
-      - run:
           name: Make Build Directory
           command: mkdir build
       - run:
