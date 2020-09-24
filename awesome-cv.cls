@@ -161,22 +161,22 @@
 %                Configuration for fonts
 %-------------------------------------------------------------------------------
 % Set the FontAwesome font to be up-to-date.
-\setfontfamily\FA[Path=\@fontdir]{FontAwesome}
+\setfontfamily\FA[Path=\@fontdir]{FontAwesome.ttf}
 % Set font for header (default is Roboto)
 \setfontfamily\headerfont[
   Path=\@fontdir,
-  UprightFont=*-Regular,
-  ItalicFont=*-Italic,
-  BoldFont=*-Bold,
-  BoldItalicFont=*-BoldItalic,
+  UprightFont=*-Regular.ttf,
+  ItalicFont=*-Italic.ttf,
+  BoldFont=*-Bold.ttf,
+  BoldItalicFont=*-BoldItalic.ttf,
 ]{Roboto}
 
 \setfontfamily\headerfontlight[
   Path=\@fontdir,
-  UprightFont=*-Thin,
-  ItalicFont=*-ThinItalic,
-  BoldFont=*-Medium,
-  BoldItalicFont=*-MediumItalic,
+  UprightFont=*-Thin.ttf,
+  ItalicFont=*-ThinItalic.ttf,
+  BoldFont=*-Medium.ttf,
+  BoldItalicFont=*-MediumItalic.ttf,
 ]{Roboto}
 
 \newcommand*{\footerfont}{\sourcesanspro}

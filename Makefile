@@ -1,6 +1,6 @@
 .PHONY: build_all
 
-CC = lualatex
+CC = xelatex
 OUTPUT_DIR = build
 TURKISH_DIR = turkish
 ENGLISH_DIR = english
