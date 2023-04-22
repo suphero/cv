@@ -17,7 +17,7 @@ jobs:
       - name: Setup TeX Live
         uses: dante-ev/latex-action@2021-A
         with:
-          ctan_pkgs: 'xelatex'
+          args: '-xelatex -latexoption=-file-line-error -latexoption=-interaction=nonstopmode'
 
       - name: Make build directory
         run: mkdir build
