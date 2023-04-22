@@ -1,0 +1,67 @@
+name: LaTeX CV Build and Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup TeX Live
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: |
+            english.tex
+            turkish.tex
+          latexmk_use_xelatex: true
+
+      - name: Move artifacts
+        run: |
+          mkdir -p artifacts
+          mv english.pdf artifacts/HarunSokullu_en.pdf
+          mv turkish.pdf artifacts/HarunSokullu_tr.pdf
+        working-directory: ${{ github.workspace }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts
+          path: artifacts
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: artifacts
+          path: artifacts
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          draft: false
+          prerelease: false
+          files: |
+            artifacts/HarunSokullu_en.pdf
+            artifacts/HarunSokullu_tr.pdf
