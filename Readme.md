@@ -1,7 +1,5 @@
 # CV
 
-[![CircleCI](https://circleci.com/gh/suphero/cv.svg?style=svg)](https://circleci.com/gh/suphero/cv)
-
 LaTeX based CV with continuous deployment.
 
 ## PDFs
