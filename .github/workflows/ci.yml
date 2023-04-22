@@ -16,8 +16,6 @@ jobs:
 
       - name: Setup TeX Live
         uses: dante-ev/latex-action@2021-A
-        with:
-          compiler: xelatex
 
       - name: Make build directory
         run: mkdir build
