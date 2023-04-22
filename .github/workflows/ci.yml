@@ -25,8 +25,8 @@ jobs:
       - name: Move artifacts
         run: |
           mkdir -p artifacts
-          mv build/english.pdf artifacts/HarunSokullu_en.pdf
-          mv build/turkish.pdf artifacts/HarunSokullu_tr.pdf
+          mv english.pdf artifacts/HarunSokullu_en.pdf
+          mv turkish.pdf artifacts/HarunSokullu_tr.pdf
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
