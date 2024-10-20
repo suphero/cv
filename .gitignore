@@ -7,8 +7,7 @@
 *.fls
 *.out
 *.toc
-
-build
+*.fdb_latexmk
 
 ## Intermediate documents:
 *.dvi
@@ -23,3 +22,4 @@ build
 ## Mac OS X metadata files:
 *.DS_Store
 
+*.pdf
