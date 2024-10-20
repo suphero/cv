@@ -9,10 +9,10 @@ ENGLISH_SRCS = $(shell find $(ENGLISH_DIR) -name '*.tex')
 
 build_all: $(foreach x, turkish english, $x.pdf)
 
-turkish.pdf: turkish.tex $(TURKISH_SRCS)
+turkish.pdf: turkish/turkish.tex $(TURKISH_SRCS)
 	$(CC) -output-directory=$(OUTPUT_DIR) $<
 
-english.pdf: english.tex $(ENGLISH_SRCS)
+english.pdf: english/english.tex $(ENGLISH_SRCS)
 	$(CC) -output-directory=$(OUTPUT_DIR) $<
 
 clean:

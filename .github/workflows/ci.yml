@@ -17,8 +17,8 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: |
-            english.tex
-            turkish.tex
+            english/english.tex
+            turkish/turkish.tex
           latexmk_use_xelatex: true
 
       - name: Move artifacts
