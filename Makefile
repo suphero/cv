@@ -1,19 +1,20 @@
 .PHONY: build_all
 
 CC = xelatex
-OUTPUT_DIR = build
-TURKISH_DIR = turkish
-ENGLISH_DIR = english
-TURKISH_SRCS = $(shell find $(TURKISH_DIR) -name '*.tex')
-ENGLISH_SRCS = $(shell find $(ENGLISH_DIR) -name '*.tex')
+TURKISH_SRCS = $(shell find turkish -name '*.tex')
+ENGLISH_SRCS = $(shell find english -name '*.tex')
+RESUME_SRCS = $(shell find resume -name '*.tex')
 
 build_all: $(foreach x, turkish english, $x.pdf)
 
 turkish.pdf: turkish/turkish.tex $(TURKISH_SRCS)
-	$(CC) -output-directory=$(OUTPUT_DIR) $<
+	xelatex -output-directory=build $<
 
 english.pdf: english/english.tex $(ENGLISH_SRCS)
-	$(CC) -output-directory=$(OUTPUT_DIR) $<
+	xelatex -output-directory=build $<
+
+resume.pdf: resume/resume.tex $(RESUME_SRCS)
+	xelatex -output-directory=build $<
 
 clean:
-	rm -rf $(OUTPUT_DIR)/*.pdf
+	rm -rf build/*.pdf
