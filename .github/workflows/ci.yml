@@ -30,7 +30,7 @@ jobs:
             turkish/turkish.tex
           latexmk_use_xelatex: true
           extra_system_packages: |
-            fonts-liberation
+            ttf-liberation
           args: -output-directory=build
 
       - name: Prepare artifacts
