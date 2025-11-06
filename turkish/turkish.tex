@@ -19,12 +19,21 @@
 \usepackage[margin=1.5cm]{geometry}
 \usepackage{enumitem}
 \usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
 \IfFontExistsTF{Arial}{
   \setmainfont{Arial}
   \setsansfont{Arial}
 }{
-  \setmainfont{Latin Modern Sans}
-  \setsansfont{Latin Modern Sans}
+  \setmainfont{Latin Modern Sans}[
+    BoldFont = {Latin Modern Sans Bold},
+    ItalicFont = {Latin Modern Sans Oblique},
+    BoldItalicFont = {Latin Modern Sans Bold Oblique}
+  ]
+  \setsansfont{Latin Modern Sans}[
+    BoldFont = {Latin Modern Sans Bold},
+    ItalicFont = {Latin Modern Sans Oblique},
+    BoldItalicFont = {Latin Modern Sans Bold Oblique}
+  ]
 }
 \usepackage{xcolor}
 \usepackage[hidelinks]{hyperref}
