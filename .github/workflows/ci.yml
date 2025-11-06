@@ -25,9 +25,16 @@ jobs:
       - name: Restore LaTeX package cache
         uses: actions/cache@v4
         with:
-          path: ~/.texlive
+          path: |
+            ~/.texlive2024
+            ~/.latexmk
           key: texlive-${{ runner.os }}-${{ hashFiles('**/*.tex') }}
           restore-keys: texlive-${{ runner.os }}-
+
+      - name: Ensure cache directories exist
+        run: |
+          mkdir -p ~/.texlive2024
+          mkdir -p ~/.latexmk
 
       - name: Compile PDF résumés
         uses: xu-cheng/latex-action@v3
@@ -36,6 +43,7 @@ jobs:
             english/english.tex
             turkish/turkish.tex
           latexmk_use_xelatex: true
+          texlive_version: 2024
           args: -output-directory=build
 
       - name: Prepare artifacts
