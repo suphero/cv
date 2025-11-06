@@ -85,12 +85,35 @@ jobs:
           name: resume-pdfs
           path: dist
 
+      - name: Update latest tag
+        if: github.ref == 'refs/heads/master'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const tagRef = 'tags/latest';
+            const sha = context.sha;
+
+            try {
+              await github.rest.git.getRef({ owner, repo, ref: tagRef });
+              await github.rest.git.updateRef({ owner, repo, ref: tagRef, sha, force: true });
+            } catch (error) {
+              if (error.status === 404) {
+                await github.rest.git.createRef({ owner, repo, ref: `refs/${tagRef}`, sha });
+              } else {
+                throw error;
+              }
+            }
+
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref == 'refs/heads/master' && 'latest' || github.ref_name }}
           name: "CV Update ${{ github.ref_name }}"
           generate_release_notes: true
+          target_commitish: ${{ github.sha }}
           files: dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
