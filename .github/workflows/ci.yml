@@ -1,67 +1,70 @@
-name: LaTeX CV Build and Publish
+name: Build and Release CV PDFs
 
 on:
   push:
     branches:
       - master
+    tags:
+      - v*
+  workflow_dispatch:
+
+concurrency:
+  group: cv-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Setup TeX Live
-        uses: xu-cheng/latex-action@v2
+      - name: Compile PDF résumés
+        uses: xu-cheng/latex-action@v3
         with:
           root_file: |
             english/english.tex
             turkish/turkish.tex
           latexmk_use_xelatex: true
+          extra_latexmk_options: -output-directory=build
 
-      - name: Move artifacts
+      - name: Prepare artifacts
         run: |
-          mkdir -p artifacts
-          mv english.pdf artifacts/HarunSokullu_en.pdf
-          mv turkish.pdf artifacts/HarunSokullu_tr.pdf
-        working-directory: ${{ github.workspace }}
+          mkdir -p dist
+          mv build/english.pdf dist/HarunSokullu_EN.pdf
+          mv build/turkish.pdf dist/HarunSokullu_TR.pdf
+          sha256sum dist/* > dist/CHECKSUMS.txt
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: artifacts
-          path: artifacts
+          name: resume-pdfs
+          path: dist
+          if-no-files-found: error
 
-  publish:
-    needs: build
+  release:
     runs-on: ubuntu-latest
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
       - name: Download artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
-          name: artifacts
-          path: artifacts
+          name: resume-pdfs
+          path: dist
 
-      - name: Setup Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.17
-
-      - name: Create Release
-        id: create_release
+      - name: Publish GitHub Release
         uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "CV Release ${{ github.ref_name }}"
+          generate_release_notes: true
+          files: dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          draft: false
-          prerelease: false
-          files: |
-            artifacts/HarunSokullu_en.pdf
-            artifacts/HarunSokullu_tr.pdf
