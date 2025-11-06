@@ -34,8 +34,33 @@ jobs:
       - name: Prepare artifacts
         run: |
           mkdir -p dist
-          mv build/english.pdf dist/HarunSokullu_EN.pdf
-          mv build/turkish.pdf dist/HarunSokullu_TR.pdf
+
+          if [ -f build/english.pdf ]; then
+            EN_SRC=build/english.pdf
+          elif [ -f english.pdf ]; then
+            EN_SRC=english.pdf
+          elif [ -f english/english.pdf ]; then
+            EN_SRC=english/english.pdf
+          else
+            echo "English PDF not found" >&2
+            ls -R
+            exit 1
+          fi
+
+          if [ -f build/turkish.pdf ]; then
+            TR_SRC=build/turkish.pdf
+          elif [ -f turkish.pdf ]; then
+            TR_SRC=turkish.pdf
+          elif [ -f turkish/turkish.pdf ]; then
+            TR_SRC=turkish/turkish.pdf
+          else
+            echo "Turkish PDF not found" >&2
+            ls -R
+            exit 1
+          fi
+
+          cp "$EN_SRC" dist/HarunSokullu_EN.pdf
+          cp "$TR_SRC" dist/HarunSokullu_TR.pdf
           sha256sum dist/* > dist/CHECKSUMS.txt
 
       - name: Upload artifacts
