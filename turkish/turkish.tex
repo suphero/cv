@@ -30,16 +30,20 @@
   \IfFontExistsTF{Helvetica Neue}{
     \setfallbacksans{Helvetica Neue}
   }{
-    \IfFontExistsTF{Helvetica}{
-      \setfallbacksans{Helvetica}
+  \IfFontExistsTF{Helvetica}{
+    \setfallbacksans{Helvetica}
+  }{
+    \IfFontExistsTF{Liberation Sans}{
+      \setfallbacksans{Liberation Sans}
     }{
-      \IfFontExistsTF{Liberation Sans}{
-        \setfallbacksans{Liberation Sans}
+      \IfFontExistsTF{Noto Sans}{
+        \setfallbacksans{Noto Sans}
       }{
         \setfallbacksans{CMU Sans Serif}
       }
     }
   }
+}
 }
 \usepackage{xcolor}
 \usepackage[hidelinks]{hyperref}
