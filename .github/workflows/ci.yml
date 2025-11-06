@@ -22,20 +22,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Restore LaTeX package cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.texlive2025
-            ~/.latexmk
-          key: texlive-${{ runner.os }}-${{ hashFiles('**/*.tex') }}
-          restore-keys: texlive-${{ runner.os }}-
-
-      - name: Ensure cache directories exist
-        run: |
-          mkdir -p ~/.texlive2025
-          mkdir -p ~/.latexmk
-
       - name: Compile PDF résumés
         uses: xu-cheng/latex-action@v3
         with:
@@ -43,7 +29,6 @@ jobs:
             english/english.tex
             turkish/turkish.tex
           latexmk_use_xelatex: true
-          texlive_version: 2025
           args: -output-directory=build
 
       - name: Prepare artifacts
