@@ -29,7 +29,8 @@ jobs:
             english/english.tex
             turkish/turkish.tex
           latexmk_use_xelatex: true
-          extra_latexmk_options: -output-directory=build
+          args: -output-directory=build
+          cache: true
 
       - name: Prepare artifacts
         run: |
