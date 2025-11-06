@@ -20,12 +20,26 @@
 \usepackage{enumitem}
 \usepackage{fontspec}
 \defaultfontfeatures{Ligatures=TeX}
+\newcommand{\setfallbacksans}[1]{%
+  \setmainfont{#1}%
+  \setsansfont{#1}%
+}
 \IfFontExistsTF{Arial}{
-  \setmainfont{Arial}
-  \setsansfont{Arial}
+  \setfallbacksans{Arial}
 }{
-  \setmainfont{TeX Gyre Heros}
-  \setsansfont{TeX Gyre Heros}
+  \IfFontExistsTF{Helvetica Neue}{
+    \setfallbacksans{Helvetica Neue}
+  }{
+    \IfFontExistsTF{Helvetica}{
+      \setfallbacksans{Helvetica}
+    }{
+      \IfFontExistsTF{Liberation Sans}{
+        \setfallbacksans{Liberation Sans}
+      }{
+        \setfallbacksans{CMU Sans Serif}
+      }
+    }
+  }
 }
 \usepackage{xcolor}
 \usepackage[hidelinks]{hyperref}
