@@ -28,7 +28,7 @@ jobs:
       - name: Cache Tectonic packages
         uses: actions/cache@v6
         with:
-          path: ~/.cache/Tectonic
+          path: ${{ runner.temp }}/tectonic
           key: tectonic-${{ env.TECTONIC_VERSION }}-${{ hashFiles('**/*.tex') }}
           restore-keys: tectonic-${{ env.TECTONIC_VERSION }}-
 
@@ -43,6 +43,8 @@ jobs:
 
       - name: Compile PDF résumés
         run: make build_all
+        env:
+          TECTONIC_CACHE_DIR: ${{ runner.temp }}/tectonic
 
       - name: Prepare artifacts
         run: |
