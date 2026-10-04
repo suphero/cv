@@ -12,6 +12,9 @@ concurrency:
   group: cv-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  TECTONIC_VERSION: 0.17.0
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,53 +23,36 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+
+      - name: Cache Tectonic packages
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/Tectonic
+          key: tectonic-${{ env.TECTONIC_VERSION }}-${{ hashFiles('**/*.tex') }}
+          restore-keys: tectonic-${{ env.TECTONIC_VERSION }}-
+
+      - name: Install Tectonic and fonts
+        run: |
+          curl -fsSL "https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%40${TECTONIC_VERSION}/tectonic-${TECTONIC_VERSION}-x86_64-unknown-linux-musl.tar.gz" \
+            | tar -xz -C /usr/local/bin tectonic
+          # Liberation Sans is metric-compatible with Arial, the font used locally on macOS
+          if ! fc-list | grep -qi "Liberation Sans"; then
+            sudo apt-get update -q && sudo apt-get install -yq fonts-liberation
+          fi
 
       - name: Compile PDF résumés
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: |
-            english/english.tex
-            turkish/turkish.tex
-          latexmk_use_xelatex: true
-          extra_system_packages: |
-            ttf-liberation
-          args: -output-directory=build
+        run: make build_all
 
       - name: Prepare artifacts
         run: |
           mkdir -p dist
-
-          if [ -f build/english.pdf ]; then
-            EN_SRC=build/english.pdf
-          elif [ -f english.pdf ]; then
-            EN_SRC=english.pdf
-          elif [ -f english/english.pdf ]; then
-            EN_SRC=english/english.pdf
-          else
-            echo "English PDF not found" >&2
-            ls -R
-            exit 1
-          fi
-
-          if [ -f build/turkish.pdf ]; then
-            TR_SRC=build/turkish.pdf
-          elif [ -f turkish.pdf ]; then
-            TR_SRC=turkish.pdf
-          elif [ -f turkish/turkish.pdf ]; then
-            TR_SRC=turkish/turkish.pdf
-          else
-            echo "Turkish PDF not found" >&2
-            ls -R
-            exit 1
-          fi
-
-          cp "$EN_SRC" dist/HarunSokullu_EN.pdf
-          cp "$TR_SRC" dist/HarunSokullu_TR.pdf
-          sha256sum dist/* > dist/CHECKSUMS.txt
+          cp build/english.pdf dist/HarunSokullu_EN.pdf
+          cp build/turkish.pdf dist/HarunSokullu_TR.pdf
+          cd dist && sha256sum *.pdf > CHECKSUMS.txt
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: resume-pdfs
           path: dist
@@ -75,21 +61,21 @@ jobs:
   release:
     runs-on: ubuntu-latest
     needs: build
+    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
     permissions:
       contents: write
 
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: resume-pdfs
           path: dist
 
       - name: Update latest tag
         if: github.ref == 'refs/heads/master'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
@@ -108,12 +94,12 @@ jobs:
             }
 
       - name: Publish GitHub Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ github.ref == 'refs/heads/master' && 'latest' || github.ref_name }}
-          name: "CV Update ${{ github.ref_name }}"
+          name: ${{ github.ref == 'refs/heads/master' && 'CV (latest)' || format('CV {0}', github.ref_name) }}
           generate_release_notes: true
           target_commitish: ${{ github.sha }}
+          overwrite_files: true
+          fail_on_unmatched_files: true
           files: dist/*
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

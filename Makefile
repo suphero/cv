@@ -1,16 +1,16 @@
-.PHONY: build_all
+.PHONY: build_all clean
 
-CC = xelatex
-TURKISH_SRCS = $(shell find turkish -name '*.tex')
-ENGLISH_SRCS = $(shell find english -name '*.tex')
+TECTONIC = tectonic -X compile --outdir build -Z search-path=.
 
-build_all: $(foreach x, turkish english, $x.pdf)
+build_all: build/english.pdf build/turkish.pdf
 
-turkish.pdf: turkish/turkish.tex $(TURKISH_SRCS)
-	xelatex -output-directory=build $<
+build/english.pdf: $(wildcard english/*.tex)
+	@mkdir -p build
+	$(TECTONIC) english/english.tex
 
-english.pdf: english/english.tex $(ENGLISH_SRCS)
-	xelatex -output-directory=build $<
+build/turkish.pdf: $(wildcard turkish/*.tex)
+	@mkdir -p build
+	$(TECTONIC) turkish/turkish.tex
 
 clean:
-	rm -rf build/*.pdf
+	rm -rf build
