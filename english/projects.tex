@@ -1,4 +1,17 @@
 \resumeProject
+  {QR Wait}
+  {qrwait.app}
+  {}
+  {September 2026 -- Present}
+\begin{itemize}
+  \item Built a location-aware virtual queue system where visitors join by scanning a QR code in the browser, with no app install, for beaches, municipal service points, restaurants and clinics.
+  \item Designed a serverless backend on Cloudflare Workers with Durable Objects (one per queue, plus registry and account objects) for real-time queue state.
+  \item Implemented anti-abuse mechanisms: geofenced joining, rotating short-lived QR codes, Turnstile and rate limiting; added Web Push notifications and localization across 16 languages.
+  \item Shipped a self-service SaaS with three queue modes (seats, tables, counters), per-queue statistics, Lemon Squeezy payments and CI-driven deployment gated by end-to-end smoke tests.
+\end{itemize}
+\vspace{0.25em}
+
+\resumeProject
   {Swipd}
   {App Store \& Google Play}
   {}
